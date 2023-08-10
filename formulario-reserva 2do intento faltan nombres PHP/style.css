@@ -1,0 +1,80 @@
+* { 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.logo{
+    padding: 5px;
+    width: 510px;
+    left: 0;
+}
+body {
+    margin: 0;
+}
+.titulo {
+    padding: 25px;
+    padding-top: 30px;
+    text-align: left;
+    color: rgba(0, 0, 255, 0.925);
+    font-size: 24px;
+    font-weight: 500;
+}
+h2{
+    text-align: left;
+    color: rgba(0, 0, 255, 0.925);
+    font-size: 21px;
+    font-weight: 490;
+    padding-left: 25px;
+
+}
+.opciones {
+    
+    padding: 30px;
+    margin: 25px;
+    box-shadow: 1px 1px 10px 2px rgba(16, 16, 233, 0.877);
+    text-align: right;
+}
+.caja {
+    line-height: 45px;
+    padding: 40px;
+    width: 100%;
+    max-width: 1800px;
+    box-shadow: 1px 1px 10px 2px rgba(16, 16, 233, 0.877);
+    
+}
+.grid3x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+}
+.grid2x3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.terciarias {
+    display: none;
+}
+.show-terciarias {
+    display: block;
+}
+.terciarias-label {
+    font-weight: 45px;
+}
+.viñeta {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+.columnas {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.observaciones{
+    resize: none;
+    width: 85%;
+}
+
+input{
+    width: 90%;
+}

@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Reserva Sala</title>
+    <link rel="stylesheet" href="style.css">
+
+    <head>
+        <img src="img/Dinot PNG-Para word.png" alt="logoMinisterio" class="logo">
+        <title>Formulario de Reserva</title>
+    </head>
+    
+<body>
+    <h2 class="titulo">Formulario de Reserva de Sala</h1>
+        <h2>Ingrese datos requeridos:</h2>
+    <div class="opciones">
+        <label>Seleccione un piso:</label>
+        <select>
+            <option value="1erPiso">1er piso</option>
+            <option value="4toPiso">4to piso</option>
+        </select>
+    </div>
+
+    <div class="caja">
+        <div class="grid3x2">
+            <div>
+                <label>Funcionario que solicita la reserva:</label><br>
+                <label>Organismo / UO:</label><br>
+                <label>Tel. de contacto:</label><br>
+            </div>
+            <div>
+                <input type="text"><br>
+                <input type="text"><br>
+                <input type="text"><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="caja">
+        <div class="grid2x3">
+            <div>
+                <label>Tema:</label><br>
+                <label>Fecha:</label><br>
+            </div>
+            <div>
+                <input type="text"><br>
+                <input type="date"><br>
+            </div>
+            <div>
+                <label>Numero de personas:</label><br>
+                <label>Hora Inicio:</label><br>
+                <label>Hora Fin:</label><br>
+            </div>
+            <div>
+                <input type="number"><br>
+                <input type="time"><br>
+                <input type="time"><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="caja">
+        <div>
+            <label>Opciones de Sala:</label><br>
+            <select onchange="mostrarTerciarias(this)">
+                <option value="">Selecciona una opción</option>
+                <option value="soloSala">Solo sala</option>
+                <option value="conProyeccion">Con proyección</option>
+                <option value="conVideoconferencia">Con videoconferencia</option>
+            </select>
+        </div>
+        <div class="terciarias" id="soloSalaTerciarias">
+            <label class="terciarias-label">Con audio:</label><br>
+            <input type="radio" name="conAudio" value="Si">Si
+            <input type="radio" name="conAudio" value="No">No
+            <br>
+            <label class="terciarias-label">Con acceso a recursos de red:</label><br>
+            <input type="radio" name="conRecursosRed" value="Si">Si
+            <input type="radio" name="conRecursosRed" value="No">No
+        </div>
+        <div class="terciarias" id="conProyeccionTerciarias">
+            <label class="terciarias-label">Con audio:</label><br>
+            <input type="radio" name="conAudio" value="Si">Si
+            <input type="radio" name="conAudio" value="No">No
+        </div>
+        <div class="terciarias" id="conVideoconferenciaTerciarias">
+            <label class="terciarias-label">Anfitrión:</label><br>
+            <input type="radio" name="anfitrionInvitado" value="Anfitrión">
+            <br>
+            <label class="terciarias-label">Invitado:</label><br>
+            <input type="radio" name="anfitrionInvitado" value="Invitado">
+            <br>
+            <label class="terciarias-label">Aplicación para videoconferencia:</label><br>
+            <input type="text" placeholder="Escriba aquí la aplicación de videoconferencia">
+        </div>
+    </div>
+
+    <div class="caja">
+        <label>Observaciones:</label><br>
+        <textarea class="observaciones"></textarea>
+    </div>
+
+    <div class="caja">
+        <p class="titulo">Notas</p>
+        <ul class="viñeta">
+            <li>La disponibilidad para el uso de las salas debera ser en el horario entre las 9 y las 16 horas.</li>
+            <li>La sala no podrá ser utilizada para eventos sociales: lunch, desayunos, comidas, bufets, etc.</li>
+            <li>Capacidad máxima de cada sala:   - 1er Piso máximo de 12 (doce) personas.
+                                                 - 4to Piso máximo de 40 (cuarenta) personas.
+            </li>
+            <li>La reserva de sala puede ser suspendida por prioridad de las autoridades.</li>
+            <li>La disposición de la sala NO puede ser modificada, sin previa autorización de la Secretaría.</li>
+            <li>El Solicitante será responsable de dejar los equipos informáticos y aire acondicionados apagados al finalizar.</li>
+        </ul>
+    </div>
+
+    <div class="caja columnas">
+        <label> Firma ________________________________________</label>
+        <label> Fecha ________________________________________</label>
+    </div>
+    <div class="caja">
+        <p><button>Enviar formulario a <a href="mailto:juanzabalia1104@gmail.com">juanzabalia1104@gmail.com</a>.</button></p>
+        <p>Galicia 1133 - Teléfonos de contacto: 2917 0710 int. 3102 - 3103 - dinot@mvot.gub.uy</p>
+    </div>
+
+    <!-- Botón para descargar el HTML con los datos ingresados -->
+    <button id="descargarHTML">Descargar HTML con datos ingresados</button>
+
+    <!-- Agregar un elemento para mostrar mensajes de error -->
+    <div id="mensajeError"></div>
+    
+    <script>
+      document.getElementById("descargarHTML").addEventListener("click", function () {
+        // Recopilar los valores ingresados por el usuario y actualizar el contenido del formulario en el HTML
+        var elementosDeEntrada = document.querySelectorAll("input, select, textarea");
+        for (var i = 0; i < elementosDeEntrada.length; i++) {
+          var elemento = elementosDeEntrada[i];
+          var valor = elemento.value;
+          if (elemento.type === "radio" || elemento.type === "checkbox") {
+            if (elemento.checked) {
+              valor = elemento.value;
+            } else {
+              valor = "";
+            }
+          }
+          if (elemento.type === "select-multiple") {
+            valor = [];
+            for (var j = 0; j < elemento.selectedOptions.length; j++) {
+              valor.push(elemento.selectedOptions[j].value);
+            }
+          }
+          var id = elemento.id;
+          if (id) {
+            var elementoActualizado = document.getElementById(id);
+            if (elementoActualizado) {
+              if (elemento.type === "radio" || elemento.type === "checkbox") {
+                elementoActualizado.checked = elemento.checked;
+              } else if (elemento.type === "select-multiple") {
+                for (var j = 0; j < elementoActualizado.options.length; j++) {
+                  elementoActualizado.options[j].selected =
+                    valor.indexOf(elementoActualizado.options[j].value) > -1;
+                }
+              } else {
+                elementoActualizado.value = valor;
+              }
+            }
+          }
+        }
+    
+        // Serializar el contenido actualizado del formulario
+        var contenidoHTML = new XMLSerializer().serializeToString(document);
+        var blob = new Blob([contenidoHTML], { type: "text/html;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+    
+        // Crear un enlace temporal para descargar el archivo
+        var enlaceTemporal = document.createElement("a");
+        enlaceTemporal.href = url;
+        enlaceTemporal.download = "formulario_reserva_sala.html";
+    
+        // Intentar descargar el archivo y mostrar un mensaje de éxito o error
+        try {
+          enlaceTemporal.click();
+          document.getElementById("mensajeError").innerText = ""; // Limpiar mensaje de error si había alguno previo
+        } catch (error) {
+          document.getElementById("mensajeError").innerText = "Error al intentar descargar el archivo.";
+        }
+      });
+    </script>
+    </body>
+    </html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulario de Reserva</title>
+    <!-- Agrega el CSS aquí -->
+</head>
+
+<body>
+    <!-- Contenido del formulario -->
+
+    <div class="caja">
+        <div class="columnas">
+            <input type="text" placeholder="Firma">
+            <input type="text" id="fechaInput" placeholder="Fecha">
+        </div>
+    </div>
+
+    <!-- Botón de envío -->
+    <div class="caja">
+        <button type="button" onclick="enviarFormulario()">Enviar</button>
+    </div>
+
+    <!-- Script para enviar el formulario -->
+    <script>
+        function enviarFormulario() {
+            // Obtener los datos del formulario
+            var formularioData = obtenerDatosFormulario();
+
+            // Realizar una llamada a tu servidor (ejemplo: usando Fetch API o AJAX) para enviar los datos
+            // Asumiendo que tienes un endpoint en el servidor para manejar el envío de correo electrónico
+            var url = 'https://tuservidor.com/enviar-correo';
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formularioData)
+            })
+                .then(function (response) {
+                    // Verificar si el correo fue enviado exitosamente
+                    if (response.ok) {
+                        alert('El formulario se envió correctamente.');
+                    } else {
+                        alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error al enviar el formulario:', error);
+                });
+        }
+
+        function obtenerDatosFormulario() {
+            // Obtener los valores de todos los campos del formulario
+            var formularioData = {
+                piso: obtenerValorSelect('piso'),
+                funcionario: obtenerValorInput('funcionario'),
+                organismo: obtenerValorInput('organismo'),
+                telefono: obtenerValorInput('telefono'),
+                email: obtenerValorInput('email'),
+                tema: obtenerValorInput('tema'),
+                fecha: obtenerValorInput('fecha'),
+                personas: obtenerValorInput('personas'),
+                horaInicio: obtenerValorInput('horaInicio'),
+                horaFin: obtenerValorInput('horaFin'),
+                sala: obtenerValorSelect('sala'),
+                conAudio: obtenerValorRadio('conAudio'),
+                conRecursosRed: obtenerValorRadio('conRecursosRed'),
+                anfitrionInvitado: obtenerValorRadio('anfitrionInvitado'),
+                aplicacionVideoconferencia: obtenerValorInput('aplicacionVideoconferencia'),
+                observaciones: obtenerValorInput('observaciones'),
+                firma: obtenerValorInput('firma'),
+                fechaFirma: obtenerValorInput('fechaInput')
+            };
+            return formularioData;
+        }
+
+        function obtenerValorSelect(id) {
+            var select = document.getElementById(id);
+            return select.options[select.selectedIndex].value;
+        }
+
+        function obtenerValorInput(id) {
+            return document.getElementById(id).value;
+        }
+
+        function obtenerValorRadio(nombre) {
+            var radios = document.getElementsByName(nombre);
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    return radios[i].value;
+                }
+            }
+            return '';
+        }
+    </script>
